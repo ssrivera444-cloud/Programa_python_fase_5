@@ -1,0 +1,56 @@
+# Autor: Sneyder Ruiz Rivera
+# Grupo: 213022_786
+# Programa: Ingeniería de Sistemas
+# Curso: Fundamentos de Programación (213022)
+# Código Fuente: autoría propia
+
+def calcular_jornada(horas_diarias):
+    """Calcula el total de horas semanales y clasifica la jornada laboral."""
+    total_horas = sum(horas_diarias)
+    if total_horas > 40:
+        clasificacion = "Sobretiempo"
+    else:
+        clasificacion = "Horario estándar"
+    return total_horas, clasificacion
+
+
+def main():
+    print("--- REGISTRO Y CLASIFICACIÓN DE HORAS SEMANALES ---")
+    dias = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"]
+    matriz_horas = []
+    cantidad_recursos = 4
+
+    for i in range(1, cantidad_recursos + 1):
+        nombre = input(f"\nIngrese el nombre del recurso {i}: ").strip()
+        horas_semana = []
+
+        for dia in dias:
+            while True:
+                try:
+                    horas = float(input(f"  Horas trabajadas el {dia}: "))
+                    if horas < 0:
+                        print("  Las horas no pueden ser negativas. Intente de nuevo.")
+                        continue
+                    horas_semana.append(horas)
+                    break
+                except ValueError:
+                    print("  Entrada inválida. Ingrese un valor numérico.")
+
+        fila = [nombre] + horas_semana
+        matriz_horas.append(fila)
+
+    print("\n" + "=" * 55)
+    print("           REPORTE DE JORNADA LABORAL SEMANAL          ")
+    print("=" * 55)
+
+    for fila in matriz_horas:
+        nombre_recurso = fila[0]
+        horas_recurso = fila[1:]
+        total_horas, clasificacion = calcular_jornada(horas_recurso)
+        print(f"Recurso: {nombre_recurso} | Total horas: {total_horas:g} | Jornada: {clasificacion}")
+
+    print("=" * 55)
+
+
+if __name__ == "__main__":
+    main() 
